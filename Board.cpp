@@ -1,6 +1,8 @@
 #include "Board.h"
 #include <algorithm>
 #include <iostream>
+#include <sstream>
+#include <string>
 #include <utility>
 #include <list>
 
@@ -8,6 +10,8 @@ namespace Life {
 	using std::max;
 	using std::min;
 	using std::ostream;
+	using std::stringstream;
+	using std::string;
 	using std::pair;
 	using std::list;
 
@@ -141,9 +145,9 @@ namespace Life {
 	 * @return *this
 	 */
 	Board &Board::updateList (const list<pair<int, int>> &l, const bool update) {
-		for (auto &i: l) {
-			if(update) {
-				(*this)(i.first, i.second) = true;
+		for (auto & i: l) {
+			if (update) {
+				(*this) (i.first, i.second) = true;
 			} else {
 				toggle (i);
 			}
@@ -182,7 +186,22 @@ namespace Life {
 
 	/* external functions */
 	ostream &operator<< (ostream &os, const Board &b) {
-		os << b.board;
+		stringstream s;
+		char c;
+		s << b.board;
+		s.read (&c, 1);
+		while (!s.eof()) {
+			switch (c) {
+			case '0':
+				c = DEAD_CELL;
+				break;
+			case '1':
+				c = LIVING_CELL;
+				break;
+			}
+			os << c;
+			s.read (&c, 1);
+		}
 		return os;
 	}
 

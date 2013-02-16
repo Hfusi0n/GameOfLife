@@ -5,6 +5,9 @@
 #include <utility>
 #include <list>
 
+#define LIVING_CELL '*'
+#define DEAD_CELL ' '
+
 namespace Life {
 	using Matrix::Matrix;
 	using std::ostream;
@@ -37,7 +40,7 @@ namespace Life {
 		Board &updateList (const std::list< std::pair< int, int > > &, const bool = true);
 
 		Board &step();
-		
+
 		Board &reset();
 
 		int getWidth() const;
