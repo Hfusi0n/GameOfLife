@@ -37,6 +37,12 @@ namespace Life {
 		Board &toggle (const list<pair<int, int>> &);
 
 		Board &step();
+		
+		Board &reset();
+
+		int getWidth() const;
+
+		int getHeight() const;
 
 		friend ostream &operator<< (ostream &, const Board &);
 	};

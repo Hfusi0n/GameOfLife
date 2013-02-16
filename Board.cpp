@@ -146,7 +146,34 @@ namespace Life {
 		return *this;
 	}
 
+	/**
+	 * resets the board
+	 * @return *this
+	 */
+	Board &Board::reset() {
+		for (int i = 0; i < board.getHeight(); i++) {
+			for (int j = 0; j < board.getWidth(); j++) {
+				(*this) (i, j) = false;
+			}
+		}
+		return *this;
+	}
 
+	/**
+	 * returns the height of the board
+	 * @return the height of the board
+	 */
+	int Board::getHeight() const {
+		return board.getHeight();
+	}
+
+	/**
+	 * returns the width of the board
+	 * @return the width of the board
+	 */
+	int Board::getWidth() const {
+		return board.getWidth();
+	}
 
 	/* external functions */
 	ostream &operator<< (ostream &os, const Board &b) {
