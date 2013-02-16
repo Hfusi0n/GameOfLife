@@ -1,0 +1,1 @@
+/usr/bin/c++   -g    CMakeFiles/gameoflife.dir/main.o  -o gameoflife -rdynamic 
