@@ -7,37 +7,20 @@ namespace Life {
 
 	class Board {
 		Matrix<bool> board;
+
+		int countNeighbors (const int, const int);
 	public:
-		/**
-		 * builds a square board
-		 * @param size size of the board
-		 */
 		Board (const int);
 
-		/**
-		 * builds a w*h board
-		 * @param h height
-		 * @param w width
-		 */
 		Board (const int, const int);
 
 		~Board();
 
-		/**
-		 * const cell access
-		 * @param r row
-		 * @param c column
-		 * @return cell at r,c (const)
-		 */
 		const bool &operator() (const int, const int) const;
 
-		/**
-		 * cell access
-		 * @param r row
-		 * @param c column
-		 * @return cell at r,c
-		 */
 		bool &operator() (const int, const int);
+
+		Board &step();
 	};
 }
 
