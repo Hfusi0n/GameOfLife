@@ -1,11 +1,13 @@
 #include "Board.h"
 #include <algorithm>
 #include <iostream>
+#include <utility>
 
 namespace Life {
 	using std::max;
 	using std::min;
 	using std::ostream;
+	using std::pair;
 
 	/**
 	 * builds a square board
@@ -43,6 +45,24 @@ namespace Life {
 	 */
 	bool &Board::operator() (const int r, const int c) {
 		return board (r, c);
+	}
+
+	/**
+	 * const cell access
+	 * @param p pair of (row, column)
+	 * @return cell at row,column (const reference)
+	 */
+	const bool &Board::operator() (const pair<int, int> &p) const {
+		return (*this) (p.first, p.second);
+	}
+
+	/**
+	 * cell access
+	 * @param p pair of (row,column)
+	 * @return cell at row,column
+	 */
+	bool &Board::operator() (const pair<int, int> &p) {
+		return (*this) (p.first, p.second);
 	}
 
 	/**
@@ -99,11 +119,21 @@ namespace Life {
 	 * @return *this
 	 */
 	Board &Board::toggle (const int r, const int c) {
-		*this (r, c) = !*this (r, c);
+		(*this) (r, c) = ! (*this) (r, c);
 		return *this;
 	}
 
+	/**
+	 * toggles the given cell
+	 * @param p pair of coordinates (row, column)
+	 * @return *this
+	 */
+	Board &Board::toggle (const pair<int, int> &p) {
+		return toggle (p.first, p.second);
+	}
 
+
+	/* external functions */
 	ostream &operator<< (ostream &os, const Board &b) {
 		os << b.board;
 		return os;

@@ -2,10 +2,12 @@
 #define _BOARD_H_
 #include "matrix.h"
 #include <iostream>
+#include <utility>
 
 namespace Life {
 	using Matrix::Matrix;
 	using std::ostream;
+	using std::pair;
 
 	class Board {
 		Matrix<bool> board;
@@ -18,11 +20,17 @@ namespace Life {
 
 		~Board();
 
+		const bool &operator() (const pair<int, int> &) const;
+
+		bool &operator() (const pair<int, int> &);
+
 		const bool &operator() (const int, const int) const;
 
 		bool &operator() (const int, const int);
 
 		Board &toggle (const int, const int);
+
+		Board &toggle (const pair<int, int> &);
 
 		Board &step();
 
