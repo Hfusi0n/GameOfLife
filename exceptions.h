@@ -21,7 +21,7 @@ namespace Matrix {
 		MatrixException() : MatrixException ("") {}
 		MatrixException (const char *message) : message (message) {}
 	public:
-		virtual const char *what() const override {
+		virtual const char *what() const throw() override {
 		    return message;
 		}
 	};
