@@ -16,25 +16,27 @@ namespace Life {
 	using std::list;
 
 	/**
-	 * builds a square board
+	 * @brief builds a square board
 	 * @param size size of the board
 	 **/
-	Board::Board (const int size) : Board (size, size) {
+	Board::Board (const int size, const unsigned int survival,
+	              const unsigned int birth) : Board (size, size, survival, birth) {
 	}
 
 	/**
-	 * builds a w*h board
+	 * @brief builds a w*h board
 	 * @param h height
 	 * @param w width
 	 **/
-	Board::Board (const int h, const int w) : board (h, w) {
+	Board::Board (const int h, const int w, const unsigned int survival,
+	              const unsigned int birth) : board (h, w), survival (survival), birth (birth) {
 	}
 
 	Board::~Board() {
 	}
 
 	/**
-	 * const cell access
+	 * @brief const cell access
 	 * @param r row
 	 * @param c column
 	 * @return cell at r,c (const)
@@ -44,7 +46,7 @@ namespace Life {
 	}
 
 	/**
-	 * cell access
+	 * @brief cell access
 	 * @param r row
 	 * @param c column
 	 * @return cell at r,c
@@ -54,7 +56,7 @@ namespace Life {
 	}
 
 	/**
-	 * const cell access
+	 * @brief const cell access
 	 * @param p pair of (row, column)
 	 * @return cell at row,column (const reference)
 	 **/
@@ -63,7 +65,7 @@ namespace Life {
 	}
 
 	/**
-	 * cell access
+	 * @brief cell access
 	 * @param p pair of (row,column)
 	 * @return cell at row,column
 	 **/
@@ -72,7 +74,7 @@ namespace Life {
 	}
 
 	/**
-	 * performs a single step
+	 * @brief performs a single step
 	 * @return a reference to the board after the step
 	 **/
 	Board &Board::step() {
@@ -80,16 +82,19 @@ namespace Life {
 		for (int i = 0; i < board.getHeight(); i++) {
 			for (int j = 0; j < board.getWidth(); j++) {
 				int neighbors = countNeighbors (i, j);
-				switch (neighbors) {
-				case 2:
-					break;
-				case 3:
-					if (!board (i, j)) {
+				unsigned int mask = 1;
+				while (neighbors > 0) {
+					mask *= 2;
+					neighbors--;
+				}
+				if (board (i, j)) {
+					if ( (mask & survival) == 0) {
+						result (i, j) = false;
+					}
+				} else {
+					if ( (mask & birth) != 0) {
 						result (i, j) = true;
 					}
-					break;
-				default:
-					result (i, j) = false;
 				}
 			}
 		}
@@ -98,7 +103,7 @@ namespace Life {
 	}
 
 	/**
-	 * counts number of neighbors of the given cell
+	 * @brief counts number of neighbors of the given cell
 	 * @param r row
 	 * @param c column
 	 * @return the number of neighbors
@@ -119,7 +124,7 @@ namespace Life {
 	}
 
 	/**
-	 * toggles the given coordinates
+	 * @brief toggles the given coordinates
 	 * @param r row
 	 * @param c column
 	 * @return *this
@@ -130,7 +135,7 @@ namespace Life {
 	}
 
 	/**
-	 * toggles the given cell
+	 * @brief toggles the given cell
 	 * @param p pair of coordinates (row, column)
 	 * @return *this
 	 **/
@@ -139,13 +144,13 @@ namespace Life {
 	}
 
 	/**
-	 * updates a list of coordinates
+	 * @brief updates a list of coordinates
 	 * @param l the list of coordinates
 	 * @param toggle sets to true if true, toggles if false (default is true)
 	 * @return *this
 	 **/
 	Board &Board::updateList (const list<pair<int, int>> &l, const bool update) {
-		for (auto & i: l) {
+for (auto & i: l) {
 			if (update) {
 				(*this) (i.first, i.second) = true;
 			} else {
@@ -156,7 +161,7 @@ namespace Life {
 	}
 
 	/**
-	 * resets the board
+	 * @brief resets the board
 	 * @return *this
 	 **/
 	Board &Board::reset() {
@@ -169,7 +174,7 @@ namespace Life {
 	}
 
 	/**
-	 * returns the height of the board
+	 * @brief returns the height of the board
 	 * @return the height of the board
 	 **/
 	int Board::getHeight() const {
@@ -177,7 +182,7 @@ namespace Life {
 	}
 
 	/**
-	 * returns the width of the board
+	 * @brief returns the width of the board
 	 * @return the width of the board
 	 **/
 	int Board::getWidth() const {

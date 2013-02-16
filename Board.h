@@ -1,12 +1,18 @@
 #ifndef _BOARD_H_
 #define _BOARD_H_
+#include "literals.h"
 #include "matrix.h"
 #include <iostream>
 #include <utility>
 #include <list>
 
+// output conversion
 #define LIVING_CELL '*'
 #define DEAD_CELL ' '
+
+// default rules
+#define DEFAULT_BIRTH 000001000_b
+#define DEFAULT_SURVIVAL 000001100_b
 
 namespace Life {
 	using Matrix::Matrix;
@@ -17,11 +23,14 @@ namespace Life {
 	class Board {
 		Matrix<bool> board;
 
+		// binary rules - the i-th binary bit represents i neighbors to apply
+		unsigned int survival, birth;
+
 		int countNeighbors (const int, const int);
 	public:
-		Board (const int);
+		Board (const int, const unsigned int = DEFAULT_SURVIVAL, const unsigned int = DEFAULT_BIRTH);
 
-		Board (const int, const int);
+		Board (const int, const int, const unsigned int = DEFAULT_SURVIVAL, const unsigned int = DEFAULT_BIRTH);
 
 		~Board();
 
