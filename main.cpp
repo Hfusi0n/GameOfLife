@@ -9,7 +9,7 @@ using std::pair;
 using std::list;
 
 int main (int argc, char **argv) {
-	constexpr int height = 11;
+	constexpr int height = 23;
 	constexpr int width = 38;
 	Board b (height, width);
 	cout << b << endl;
@@ -24,10 +24,22 @@ int main (int argc, char **argv) {
 	};
 	b.updateList (pattern);
 
-	for (int i = 0; i < 20; i++) {
+	for (int i = 0; i < 100; i++) {
 		cout << b << endl;
 		b.step();
 	}
 	cout << b << endl;
+
+	cout<<b.getHeight()<<endl;
+	cout<<b.getWidth()<<endl;
+	Board c = b;
+	c.toggle(10, 10);
+	cout<<b<<endl;
+	cout<<c<<endl;
+	for (int i = 0; i < 10; i++) {
+		cout << c << endl;
+		c.step();
+	}
+	cout<<b.reset()<<endl;
 	return 0;
 }
