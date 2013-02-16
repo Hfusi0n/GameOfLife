@@ -3,11 +3,13 @@
 #include "matrix.h"
 #include <iostream>
 #include <utility>
+#include <list>
 
 namespace Life {
 	using Matrix::Matrix;
 	using std::ostream;
 	using std::pair;
+	using std::list;
 
 	class Board {
 		Matrix<bool> board;
@@ -31,6 +33,8 @@ namespace Life {
 		Board &toggle (const int, const int);
 
 		Board &toggle (const pair<int, int> &);
+
+		Board &toggle (const list<pair<int, int>> &);
 
 		Board &step();
 

@@ -2,12 +2,14 @@
 #include <algorithm>
 #include <iostream>
 #include <utility>
+#include <list>
 
 namespace Life {
 	using std::max;
 	using std::min;
 	using std::ostream;
 	using std::pair;
+	using std::list;
 
 	/**
 	 * builds a square board
@@ -131,6 +133,19 @@ namespace Life {
 	Board &Board::toggle (const pair<int, int> &p) {
 		return toggle (p.first, p.second);
 	}
+
+	/**
+	 * toggles a list of coordinates
+	 * @param l the list of coordinates
+	 * @return *this
+	 */
+	Board &Board::toggle (const list<pair<int, int>> &l) {
+		for (auto &i: l) {
+			toggle (i);
+		}
+		return *this;
+	}
+
 
 
 	/* external functions */
