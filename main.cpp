@@ -22,7 +22,7 @@ int main (int argc, char **argv) {
 		, {3, 21}, {4, 21}, {5, 21}, {3, 22}, {4, 22}, {5, 22}, {2, 23}, {6, 23}
 		, {1, 25}, {2, 25}, {6, 25}, {7, 25}
 	};
-	b.toggle(pattern);
+	b.updateList(pattern);
 
 	for (int i = 0; i < 10; i++) {
 		cout << b << endl;

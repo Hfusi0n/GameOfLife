@@ -34,7 +34,7 @@ namespace Life {
 
 		Board &toggle (const pair<int, int> &);
 
-		Board &toggle (const list<pair<int, int>> &);
+		Board &updateList (const std::list< std::pair< int, int > > &, const bool = true);
 
 		Board &step();
 		

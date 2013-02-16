@@ -135,13 +135,18 @@ namespace Life {
 	}
 
 	/**
-	 * toggles a list of coordinates
+	 * updates a list of coordinates
 	 * @param l the list of coordinates
+	 * @param toggle sets to true if true, toggles if false (default is true)
 	 * @return *this
 	 */
-	Board &Board::toggle (const list<pair<int, int>> &l) {
+	Board &Board::updateList (const list<pair<int, int>> &l, const bool update) {
 		for (auto &i: l) {
-			toggle (i);
+			if(update) {
+				(*this)(i.first, i.second) = true;
+			} else {
+				toggle (i);
+			}
 		}
 		return *this;
 	}
