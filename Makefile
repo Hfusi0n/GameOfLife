@@ -4,15 +4,15 @@ DEBUG = -g
 CXXFLAGS = -std=c++11 -Werror -Wall -pedantic-errors $(DEBUG)
 BUILDDIR=build/
 
-$(OUTPUT): Board.o matrix.o main.o
+$(OUTPUT): Board.o main.o literals.o
 	mkdir -p $(BUILDDIR)
 	$(CXX) $^ -o $(BUILDDIR)/$@
 
-Board.o: Board.cpp Board.h matrix.h exceptions.h language.h
+Board.o: Board.cpp Board.h literals.h matrix.h exceptions.h language.h
 	$(CXX) $(CXXFLAGS) -c $^
-main.o: main.cpp Board.h matrix.h exceptions.h language.h
+literals.o: literals.cpp literals.h
 	$(CXX) $(CXXFLAGS) -c $^
-matrix.o: matrix.cpp
+main.o: main.cpp Board.h literals.h matrix.h exceptions.h language.h
 	$(CXX) $(CXXFLAGS) -c $^
 
 clean_o:
