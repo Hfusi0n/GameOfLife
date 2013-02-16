@@ -89,8 +89,20 @@ namespace Life {
 		return count;
 	}
 
+	/**
+	 * toggles the given coordinates
+	 * @param r row
+	 * @param c column
+	 * @return *this
+	 */
+	Board &Board::toggle (const int r, const int c) {
+		*this (r, c) = !*this (r, c);
+		return *this;
+	}
+
+
 	ostream &operator<< (ostream &os, const Board &b) {
-		os<<b.board;
+		os << b.board;
 		return os;
 	}
 

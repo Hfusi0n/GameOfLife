@@ -20,9 +20,11 @@ namespace Life {
 
 		bool &operator() (const int, const int);
 
+		Board &toggle (const int, const int);
+
 		Board &step();
-		
-		friend ostream &operator<<(ostream &, const Board &);
+
+		friend ostream &operator<< (ostream &, const Board &);
 	};
 }
 
