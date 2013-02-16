@@ -12,7 +12,7 @@ using std::endl;
 
 namespace Matrix {
 	/**
-	 * a general matrix exception,
+	 * @brief a general matrix exception,
 	 * used as a base class for all the other matrix exceptions
 	 **/
 	class MatrixException: std::exception {
