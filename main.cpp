@@ -30,16 +30,16 @@ int main (int argc, char **argv) {
 	}
 	cout << b << endl;
 
-	cout<<b.getHeight()<<endl;
-	cout<<b.getWidth()<<endl;
+	cout << b.getHeight() << endl;
+	cout << b.getWidth() << endl;
 	Board c = b;
-	c.toggle(10, 10);
-	cout<<b<<endl;
-	cout<<c<<endl;
-	for (int i = 0; i < 10; i++) {
+	c.toggle (10, 10);
+	cout << b << endl;
+	cout << c << endl;
+	for (int i = 0; i < 20; i++) {
 		cout << c << endl;
 		c.step();
 	}
-	cout<<b.reset()<<endl;
+	cout << b.reset() << endl;
 	return 0;
 }
