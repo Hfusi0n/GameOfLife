@@ -25,7 +25,7 @@ namespace Matrix {
 	 * - (arithmetic)
 	 * - (negation)
 	 * * (multiply)
-	 */
+	 **/
 	template<class T> class Matrix {
 		// zero and one constants (for a little bit of efficiency)
 		T const zero = T (0);
@@ -44,7 +44,7 @@ namespace Matrix {
 
 		/**
 		 * workaround - gets the item at (i,j)
-		 */
+		 **/
 		T &at (const int row, const int col) const {
 			if (!checkColumn (col) || !checkRow (row)) {
 				throw OutOfBounds();
@@ -61,7 +61,7 @@ namespace Matrix {
 		 * @param resize will resize the matrix if true (and reset its contents!)
 		 * @param offsetHeight the offset height to assign
 		 * @param offsetWidth the offset width to assign
-		 */
+		 **/
 		void assign (const Matrix &m, const bool reset = true, const int offsetHeight = 0, const int offsetWidth = 0) {
 			if (reset && (width != m.width || height != m.height)) {
 				resize (m.height, m.width);
@@ -85,7 +85,7 @@ namespace Matrix {
 		 * if the new size is 0x0, just deallocates everything
 		 * @param newHeight the new height
 		 * @param newWidth the new width
-		 */
+		 **/
 		void resize (const int newHeight, const int newWidth) {
 			if (newHeight < 0 || newWidth < 0) {
 				throw InvalidSize();
@@ -125,7 +125,7 @@ namespace Matrix {
 		 * creates a new h*w matrix
 		 * @param height
 		 * @param width
-		 */
+		 **/
 		Matrix (const int height, const int width) : height (0), width (0) {
 			resize (height, width);
 		}
@@ -133,20 +133,20 @@ namespace Matrix {
 		/**
 		 * creates a size*size square matrix
 		 * @param size the size of the matrix
-		 */
+		 **/
 		Matrix (const int size) : Matrix (size, size) {}
 
 		/**
 		 * copy constructor
 		 * @param m the matrix to copy
-		 */
+		 **/
 		Matrix (const Matrix<T> &m) : Matrix (m.height, m.width) {
 			assign (m);
 		}
 
 		/**
 		 * default c-tor - creates a withered (0*0) matrix
-		 */
+		 **/
 		Matrix() : Matrix (0) {}
 
 		~Matrix() {
@@ -164,7 +164,7 @@ namespace Matrix {
 		/**
 		 * returns a transposed copy of the given matrix
 		 * @return a transposed version of the current matrix
-		 */
+		 **/
 		Matrix transpose() const {
 			Matrix<T> ret (width, height);
 			for (int i = 0; i < height; i++) {
@@ -179,7 +179,7 @@ namespace Matrix {
 		 * gets row vector
 		 * @param row the row
 		 * @return the row vector
-		 */
+		 **/
 		Matrix getRow (const int row) const {
 			if (!checkRow (row)) {
 				throw OutOfBounds();
@@ -195,7 +195,7 @@ namespace Matrix {
 		 * gets column vector
 		 * @param col the column
 		 * @return the column vector
-		 */
+		 **/
 		Matrix getColumn (const int col) const {
 			if (!checkColumn (col)) {
 				throw OutOfBounds();
@@ -210,7 +210,7 @@ namespace Matrix {
 		/**
 		 * checks if the matrix is square
 		 * @return true if square matrix
-		 */
+		 **/
 		bool isSquare() const {
 			return (width == height);
 		}
@@ -220,7 +220,7 @@ namespace Matrix {
 		 * @param row row to remove
 		 * @param col column to remove
 		 * @return minor of the matrix
-		 */
+		 **/
 		Matrix getMinor (const int row, const int col) const {
 			if (!isSquare()) {
 				throw NonSquareMatrix();
@@ -251,7 +251,7 @@ namespace Matrix {
 		/**
 		 * returns the determinant of the matrix
 		 * @return the determinant
-		 */
+		 **/
 		T det() const {
 			if (!isSquare()) {
 				throw NonSquareMatrix();
@@ -275,7 +275,7 @@ namespace Matrix {
 		/**
 		 * gets the inverse of the matrix
 		 * @return the inverse of the matrix
-		 */
+		 **/
 		Matrix inverse() const {
 			if (!isSquare()) {
 				throw NonSquareMatrix();
@@ -291,7 +291,7 @@ namespace Matrix {
 		/**
 		 * returns the trace of the matrix
 		 * @return the trace
-		 */
+		 **/
 		T trace() const {
 			if (!isSquare()) {
 				throw NonSquareMatrix();
@@ -308,7 +308,7 @@ namespace Matrix {
 		 * @param r1 row 1
 		 * @param r2 row 2
 		 * @return the matrix with the swapped rows
-		 */
+		 **/
 		Matrix rowSwap (const int r1, const int r2) const {
 			if (!checkRow (r1) || !checkRow (r2)) {
 				throw OutOfBounds();
@@ -327,7 +327,7 @@ namespace Matrix {
 		 * @param r the row
 		 * @param s the scalar
 		 * @return the matrix with row r multiplied by s
-		 */
+		 **/
 		Matrix rowMultiply (const int r, const T &s) const {
 			return rowAddMultiply (r, r, s - one);
 		}
@@ -338,7 +338,7 @@ namespace Matrix {
 		 * @param source the source row
 		 * @param s the scalar to multiply by. default is 1 (T must support this)
 		 * @return the matrix with a row added by a multiplication of another row
-		 */
+		 **/
 		Matrix rowAddMultiply (const int destination, const int source, const T &s = 1) const {
 			if (!checkRow (destination) || !checkRow (source)) {
 				throw OutOfBounds();
@@ -361,7 +361,7 @@ namespace Matrix {
 		 * @param source the source column
 		 * @param s the scalar to multiply by. default is 1 (T must support this)
 		 * @return the matrix with a column added by a multiplication of another column
-		 */
+		 **/
 		Matrix colAddMultiply (const int destination, const int source, const T &s) const {
 			return transpose().rowAddMultiply (destination, source, s).transpose();
 		}
@@ -371,7 +371,7 @@ namespace Matrix {
 		 * @param c the column
 		 * @param s the scalar
 		 * @return the matrix with column c multiplied by s
-		 */
+		 **/
 		Matrix colMultiply (const int c, const T &s) const {
 			return colAddMultiply (c, c, s - 1);
 		}
@@ -381,7 +381,7 @@ namespace Matrix {
 		 * @param c1 the first column
 		 * @param c2 the second column
 		 * @return the matrix with the two columns swapped
-		 */
+		 **/
 		Matrix colSwap (int c1, int c2) const {
 			return transpose().rowSwap (c1, c2).transpose();
 		}
@@ -392,7 +392,7 @@ namespace Matrix {
 		 * if M is singular, throws NonRegularMatrix for r <= 0
 		 * @param r the exponent
 		 * @return M^r
-		 */
+		 **/
 		Matrix power (int r) const {
 			if (!isSquare()) {
 				throw NonSquareMatrix();
@@ -422,7 +422,7 @@ namespace Matrix {
 		 * returns the matrix after gaussian elimination
 		 * @param canonical returns a full canonical form if true, just a triangular form otherwise
 		 * @return the matrix after gaussian elimination
-		 */
+		 **/
 		Matrix gaussianElimination (const bool canonical = false) const {
 			Matrix<T> b; // another workaround
 			return gaussianElimination (b, canonical);
@@ -433,7 +433,7 @@ namespace Matrix {
 		 * @param matrix the matrix which will become inversed (if there's an inverse)
 		 * @param canonical returns a full canonical form if true, just a triangular form otherwise
 		 * @return the matrix after gaussian elimination
-		 */
+		 **/
 		Matrix gaussianElimination (Matrix &inverse, const bool canonical = false) const {
 			int a; // workaround
 			return gaussianElimination (a, inverse, canonical);
@@ -446,7 +446,7 @@ namespace Matrix {
 		 * 	if non-square - not touched. if singular or non-canonical - undefined matrix
 		 * @param canonical returns a full canonical form if true, just a triangular form otherwise
 		 * @return the matrix after gaussian elimination
-		 */
+		 **/
 		Matrix gaussianElimination (int &swapCount, Matrix &inverse, const bool canonical = false) const {
 			Matrix<T> ret = *this;
 			bool hasInverse = false;
@@ -526,7 +526,7 @@ namespace Matrix {
 		/**
 		 * returns the rank of the matrix
 		 * @return rank of the matrix
-		 */
+		 **/
 		int rank() const {
 			auto triangled = gaussianElimination();
 			int ret = std::min (width, height);
@@ -539,12 +539,12 @@ namespace Matrix {
 			return ret;
 		}
 
-		/* static functions */
+		/* static functions **/
 		/**
 		 * returns the unit matrix
 		 * @param size the size of the unit matrix
 		 * @return I(n*n)
-		 */
+		 **/
 		static Matrix unitMatrix (const int size) {
 			return scalarMatrix (size, 1);
 		}
@@ -554,7 +554,7 @@ namespace Matrix {
 		 * @param size size
 		 * @param s the scalar
 		 * @return sI
-		 */
+		 **/
 		static Matrix scalarMatrix (const int size, const T &s) {
 			Matrix<T> ret (size);
 			for (int i = 0; i < ret.getWidth(); i++) {
@@ -568,7 +568,7 @@ namespace Matrix {
 		 * @param size the size of the block
 		 * @param s the value of the diagonal
 		 * @return the jordan block
-		 */
+		 **/
 		static Matrix jordanBlock (const int size, const T &s) {
 			Matrix<T> ret = scalarMatrix (size, s);
 			for (int i = 1; i < ret.getWidth(); i++) {
@@ -583,7 +583,7 @@ namespace Matrix {
 		 * @param width the width of the matrix
 		 * @param s the value of each cell
 		 * @return a full matrix with the given size and value
-		 */
+		 **/
 		static Matrix fullMatrix (const int height, const int width, const T &s) {
 			Matrix<T> ret (height, width);
 			for (int i = 0; i < ret.getHeight(); i++) {
@@ -594,13 +594,13 @@ namespace Matrix {
 			return ret;
 		}
 
-		/* operators */
+		/* operators **/
 		/**
 		 * gets the value at (i,j)
 		 * @param row row
 		 * @param col column
 		 * @return the value at (i,j)
-		 */
+		 **/
 		const T &operator() (const int row, const int col) const {
 			return at (row, col);
 		}
@@ -612,7 +612,7 @@ namespace Matrix {
 		 * matrix comparison
 		 * @param m the matrix to compare
 		 * @return true if they're equal
-		 */
+		 **/
 		bool operator== (const Matrix &m) const {
 			if (this == &m) { // reflexive relation
 				return true;
@@ -636,7 +636,7 @@ namespace Matrix {
 		 * matrix !=
 		 * @param m the matrix to compare with
 		 * @return true if not equal
-		 */
+		 **/
 		bool operator!= (const Matrix &m) const {
 			return ! (*this == m);
 		}
@@ -651,7 +651,7 @@ namespace Matrix {
 
 		/**
 		 * matrix +=
-		 */
+		 **/
 		Matrix &operator+= (const Matrix &m) {
 			if (getWidth() != m.getWidth() || getHeight() != m.getHeight()) {
 				throw SizeMismatch();
@@ -666,7 +666,7 @@ namespace Matrix {
 
 		/**
 		 * matrix -=
-		 */
+		 **/
 		Matrix &operator-= (const Matrix &m) {
 			*this += -m;
 			return *this;
@@ -674,7 +674,7 @@ namespace Matrix {
 
 		/**
 		 * scalar *=
-		 */
+		 **/
 		Matrix &operator*= (const T &s) {
 			for (int i = 0; i < height; i++) {
 				for (int j = 0; j < width; j++) {
@@ -689,7 +689,7 @@ namespace Matrix {
 		 * will throw exception on size mismatch
 		 * @param m the matrix to multiply with
 		 * @return this*m
-		 */
+		 **/
 		Matrix &operator*= (const Matrix &m) {
 			*this = *this * m;
 			return *this;
@@ -698,7 +698,7 @@ namespace Matrix {
 		/**
 		 * returns the negative of the matrix
 		 * @return -matrix
-		 */
+		 **/
 		Matrix operator-() const {
 			Matrix<T> ret (height, width);
 			for (int i = 0; i < height; i++) {
@@ -710,14 +710,14 @@ namespace Matrix {
 		}
 	};
 
-	/* class stuff prototypes */
+	/* class stuff prototypes **/
 
 	/**
 	 * matrix substraction
 	 * @param m1 matrix 1
 	 * @param m2 matrix 2
 	 * @return m1-m2
-	 */
+	 **/
 	template<class T> Matrix<T> operator- (const Matrix<T> &, const Matrix<T> &);
 
 	/**
@@ -725,7 +725,7 @@ namespace Matrix {
 	 * @param m the matrix
 	 * @param s the scalar
 	 * @return m-sI
-	 */
+	 **/
 	template<class T> Matrix<T> operator- (const Matrix<T> &, const T &);
 
 	/**
@@ -733,7 +733,7 @@ namespace Matrix {
 	 * @param s the scalar
 	 * @param m the matrix
 	 * @return sI-m
-	 */
+	 **/
 	template<class T> Matrix<T> operator- (const T &, const Matrix<T> &);
 
 	/**
@@ -742,7 +742,7 @@ namespace Matrix {
 	 * @param m the matrix
 	 * @param s the scalar to compare with
 	 * @return m == sI
-	 */
+	 **/
 	template<class T> bool operator== (const Matrix<T> &, const T &);
 
 	/**
@@ -751,7 +751,7 @@ namespace Matrix {
 	 * @param m the matrix
 	 * @param s the scalar to compare with
 	 * @return sI == m
-	 */
+	 **/
 	template<class T> bool operator== (const T &, const Matrix<T> &);
 
 	/**
@@ -759,7 +759,7 @@ namespace Matrix {
 	 * @param m the matrix
 	 * @param s the scalar
 	 * @return m != sI
-	 */
+	 **/
 	template<class T> bool operator!= (const Matrix<T> &, const T &);
 
 	/**
@@ -767,7 +767,7 @@ namespace Matrix {
 	 * @param s the scalar
 	 * @param m the matrix
 	 * @return sI != m
-	 */
+	 **/
 	template<class T> bool operator!= (const T &, const Matrix<T> &);
 
 	/**
@@ -775,7 +775,7 @@ namespace Matrix {
 	 * @param fd the output stream
 	 * @param m the matrix to print
 	 * @return reference to fd
-	 */
+	 **/
 	template<class T> ostream &operator<< (ostream &, const Matrix<T> &);
 
 	/**
@@ -783,7 +783,7 @@ namespace Matrix {
 	 * @param fd the output stream
 	 * @param m the matrix to print
 	 * @return reference to fd
-	 */
+	 **/
 	template<class T> ostream &operator<< (ostream &, const Matrix<T> &);
 
 	/**
@@ -791,7 +791,7 @@ namespace Matrix {
 	 * @param s the scalar
 	 * @param m the matrix
 	 * @return m*sI
-	 */
+	 **/
 	template<class T> Matrix<T> &operator* (const Matrix<T> &, const T &);
 
 	/**
@@ -799,7 +799,7 @@ namespace Matrix {
 	 * @param m the matrix
 	 * @param s the scalar
 	 * @return sI*m
-	 */
+	 **/
 	template<class T> Matrix<T> &operator* (const T &, const Matrix<T> &);
 
 	/**
@@ -807,7 +807,7 @@ namespace Matrix {
 	 * @param m1 matrix 1
 	 * @param m2 matrix 2
 	 * @return the multiplication of the two matrices
-	 */
+	 **/
 	template<class T> Matrix<T> operator* (const Matrix<T> &, const Matrix<T> &);
 
 	/**
@@ -815,7 +815,7 @@ namespace Matrix {
 	 * @param m1 matrix 1
 	 * @param m2 matrix 2
 	 * @return m1+m2
-	 */
+	 **/
 	template<class T> Matrix<T> operator+ (const Matrix<T> &, const Matrix<T> &);
 
 	/**
@@ -823,7 +823,7 @@ namespace Matrix {
 	 * @param m matrix
 	 * @param s scalar
 	 * @return m+sI
-	 */
+	 **/
 	template<class T> Matrix<T> operator+ (const Matrix<T> &, const T &);
 
 	/**
@@ -831,7 +831,7 @@ namespace Matrix {
 	 * @param s scalar
 	 * @param m matrix
 	 * @return sI+m
-	 */
+	 **/
 	template<class T> Matrix<T> operator+ (const T &, const Matrix<T> &);
 
 	template<class T> Matrix<T> operator- (const Matrix<T> &m1, const Matrix<T> &m2) {

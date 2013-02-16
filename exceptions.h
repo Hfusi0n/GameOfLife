@@ -14,7 +14,7 @@ namespace Matrix {
 	/**
 	 * a general matrix exception,
 	 * used as a base class for all the other matrix exceptions
-	 */
+	 **/
 	class MatrixException: std::exception {
 		const char *message;
 	protected: // prevent external instanciation

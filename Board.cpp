@@ -18,7 +18,7 @@ namespace Life {
 	/**
 	 * builds a square board
 	 * @param size size of the board
-	 */
+	 **/
 	Board::Board (const int size) : Board (size, size) {
 	}
 
@@ -26,7 +26,7 @@ namespace Life {
 	 * builds a w*h board
 	 * @param h height
 	 * @param w width
-	 */
+	 **/
 	Board::Board (const int h, const int w) : board (h, w) {
 	}
 
@@ -38,7 +38,7 @@ namespace Life {
 	 * @param r row
 	 * @param c column
 	 * @return cell at r,c (const)
-	 */
+	 **/
 	const bool &Board::operator() (const int r, const int c) const {
 		return board (r, c);
 	}
@@ -48,7 +48,7 @@ namespace Life {
 	 * @param r row
 	 * @param c column
 	 * @return cell at r,c
-	 */
+	 **/
 	bool &Board::operator() (const int r, const int c) {
 		return board (r, c);
 	}
@@ -57,7 +57,7 @@ namespace Life {
 	 * const cell access
 	 * @param p pair of (row, column)
 	 * @return cell at row,column (const reference)
-	 */
+	 **/
 	const bool &Board::operator() (const pair<int, int> &p) const {
 		return (*this) (p.first, p.second);
 	}
@@ -66,7 +66,7 @@ namespace Life {
 	 * cell access
 	 * @param p pair of (row,column)
 	 * @return cell at row,column
-	 */
+	 **/
 	bool &Board::operator() (const pair<int, int> &p) {
 		return (*this) (p.first, p.second);
 	}
@@ -74,7 +74,7 @@ namespace Life {
 	/**
 	 * performs a single step
 	 * @return a reference to the board after the step
-	 */
+	 **/
 	Board &Board::step() {
 		Matrix<bool> result (board);
 		for (int i = 0; i < board.getHeight(); i++) {
@@ -102,7 +102,7 @@ namespace Life {
 	 * @param r row
 	 * @param c column
 	 * @return the number of neighbors
-	 */
+	 **/
 	int Board::countNeighbors (const int r, const int c) {
 		int count = 0;
 		for (int i = max (r - 1, 0); i <= min (r + 1, board.getHeight() - 1); i++) {
@@ -123,7 +123,7 @@ namespace Life {
 	 * @param r row
 	 * @param c column
 	 * @return *this
-	 */
+	 **/
 	Board &Board::toggle (const int r, const int c) {
 		(*this) (r, c) = ! (*this) (r, c);
 		return *this;
@@ -133,7 +133,7 @@ namespace Life {
 	 * toggles the given cell
 	 * @param p pair of coordinates (row, column)
 	 * @return *this
-	 */
+	 **/
 	Board &Board::toggle (const pair<int, int> &p) {
 		return toggle (p.first, p.second);
 	}
@@ -143,7 +143,7 @@ namespace Life {
 	 * @param l the list of coordinates
 	 * @param toggle sets to true if true, toggles if false (default is true)
 	 * @return *this
-	 */
+	 **/
 	Board &Board::updateList (const list<pair<int, int>> &l, const bool update) {
 		for (auto & i: l) {
 			if (update) {
@@ -158,7 +158,7 @@ namespace Life {
 	/**
 	 * resets the board
 	 * @return *this
-	 */
+	 **/
 	Board &Board::reset() {
 		for (int i = 0; i < board.getHeight(); i++) {
 			for (int j = 0; j < board.getWidth(); j++) {
@@ -171,7 +171,7 @@ namespace Life {
 	/**
 	 * returns the height of the board
 	 * @return the height of the board
-	 */
+	 **/
 	int Board::getHeight() const {
 		return board.getHeight();
 	}
@@ -179,12 +179,12 @@ namespace Life {
 	/**
 	 * returns the width of the board
 	 * @return the width of the board
-	 */
+	 **/
 	int Board::getWidth() const {
 		return board.getWidth();
 	}
 
-	/* external functions */
+	/* external functions **/
 	ostream &operator<< (ostream &os, const Board &b) {
 		stringstream s;
 		char c;
