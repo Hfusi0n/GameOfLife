@@ -6,5 +6,6 @@ using std::endl;
 
 int main (int argc, char **argv) {
 	Board b (10);
+	cout<<b<<endl;
 	return 0;
 }

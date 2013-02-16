@@ -90,7 +90,7 @@ namespace Life {
 	}
 
 	ostream &operator<< (ostream &os, const Board &b) {
-		os<<b;
+		os<<b.board;
 		return os;
 	}
 
