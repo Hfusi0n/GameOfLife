@@ -1,9 +1,12 @@
 #include "Board.h"
 #include <algorithm>
+#include <iostream>
 
 namespace Life {
 	using std::max;
 	using std::min;
+	using std::ostream;
+
 	/**
 	 * builds a square board
 	 * @param size size of the board

@@ -1,9 +1,11 @@
 #ifndef _BOARD_H_
 #define _BOARD_H_
 #include "matrix.h"
+#include <iostream>
 
 namespace Life {
 	using Matrix::Matrix;
+	using std::ostream;
 
 	class Board {
 		Matrix<bool> board;
